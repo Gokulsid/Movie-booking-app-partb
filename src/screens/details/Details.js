@@ -9,7 +9,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { Link } from 'react-router-dom';
-
 class Details extends Component {
     constructor() {
         super();
@@ -42,20 +41,19 @@ class Details extends Component {
             }]
         }
     }
-
     componentWillMount() {
         let currentState = this.state;
         currentState.movie = moviesData.filter((mov) => {
-            return mov.id === this.props.match.params.id
+            return ( mov.title) == this.props.match.params.id
         })[0];
 
         this.setState({ currentState });
+        console.log(""+this.props.match.params.id)
     }
 
     artistClickHandler = (url) => {
         window.location = url;
     }
-
     starClickHandler = (id) => {
         let starIconList = [];
         for (let star of this.state.starIcons) {
@@ -65,13 +63,11 @@ class Details extends Component {
             }
             else {
                 starNode.color = "black";
-
             }
             starIconList.push(starNode);
         }
         this.setState({ starIcons: starIconList });
     }
-
     render() {
         let movie = this.state.movie;
         const opts = {
@@ -83,7 +79,7 @@ class Details extends Component {
         }
         return (
             <div className="details">
-                <Header id={this.props.match.params.id} showBookShowButton="true" />
+               <Header id={this.props.match.params.id} showBookShowButton="true" />
                 <div className="back">
                     <Typography>
                         <Link to="/">  &#60; Back to Home</Link>
@@ -93,7 +89,6 @@ class Details extends Component {
                     <div className="leftDetails">
                         <img src={movie.poster_url} alt={movie.title} />
                     </div>
-
                     <div className="middleDetails">
                         <div>
                             <Typography variant="headline" component="h2">{movie.title} </Typography>
@@ -127,7 +122,6 @@ class Details extends Component {
                             />
                         </div>
                     </div>
-
                     <div className="rightDetails">
                         <Typography>
                             <span className="bold">Rate this movie: </span>
@@ -139,7 +133,6 @@ class Details extends Component {
                                 onClick={() => this.starClickHandler(star.id)}
                             />
                         ))}
-
                         <div className="bold marginBottom16 marginTop16">
                             <Typography>
                                 <span className="bold">Artists:</span>
@@ -166,5 +159,4 @@ class Details extends Component {
         )
     }
 }
-
-export default Details;
+export default Details
